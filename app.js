@@ -39,11 +39,13 @@ searchField = document.getElementById("search")
 // Toggle Spinner for search image
 const toggleSpinner = () => {
   const spinner = document.getElementById('loading-spinner');
+  const errorSpinner = document.getElementById('error-message');
   spinner.classList.toggle('d-none');
+  errorSpinner.classList.toggle('d-none');
 }
 
 const getImages = (query) => {
-  toggleSpinner(true);
+  toggleSpinner();
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -54,6 +56,7 @@ const getImages = (query) => {
 const displayError = error => {
   const errorTag = document.getElementById('error-message');
   errorTag.innerHTML = error;
+  toggleSpinner();
 }
 
 let slideIndex = 0;
